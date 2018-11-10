@@ -13,7 +13,9 @@
     "build": "nwb build-web-module",
     "clean": "nwb clean-module",
     "prepublishOnly": "npm run build",
-    "test": "jest"
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
   },
   "dependencies": {},
   "devDependencies": {
@@ -22,7 +24,6 @@
     "babel-preset-flow": "^6.23.0",
     "crocks": "0.11.x",
     "flow-bin": "^0.86.0",
-    "jest": "^23.6.0",
     "nwb": "0.23.x"
   },
   "author": "",
