@@ -1,7 +1,7 @@
 {
   "name": "@artispace/utils",
   "version": "1.0.0",
-  "description": "Describe @artispace/utils here",
+  "description": "This package provides all the utility functions and safety I need in developing Artispace",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -17,13 +17,24 @@
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "crocks": "0.11.x",
+    "flow-bin": "^0.86.0",
     "nwb": "0.23.x"
   },
   "author": "",
   "homepage": "",
   "license": "MIT",
-  "repository": ""
+  "repository": "",
+  "peerDependencies": {
+    "crocks": "0.11.x"
+  },
+  "babel": {
+    "presets": [
+      "flow"
+    ]
+  }
 }
