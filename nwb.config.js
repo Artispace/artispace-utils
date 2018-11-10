@@ -1,10 +1,13 @@
 module.exports = {
-  type: 'web-module',
+  type: "web-module",
+  babel: {
+    plugins: "transform-flow-strip-types"
+  },
   npm: {
     esModules: true,
     umd: {
-      global: 'ArtispaceUtils',
+      global: "ArtispaceUtils",
       externals: {}
     }
   }
-}
+};
