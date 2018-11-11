@@ -72,57 +72,57 @@ const safeNumberProp = (n, def): number => propOr(n, isNumber, def);
 
 const safeBooleanProp = (n, def): Boolean => propOr(n, isBoolean, def);
 
-//isPropString :: -> State.get :: (s -> a) -> State s a
-export const isPropString = (prop: property, def: any): gettype =>
+//getString :: -> State.get :: (s -> a) -> State s a
+export const getString = (prop: property, def: any): gettype =>
   get(safeStringProp(prop, def));
 
-export const isPropStringC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropString(prop, def));
+export const getStringC = (prop: property, def: any): boolean =>
+  flip(evalWith, getString(prop, def));
 
-export const isPropNonEmptyString = (prop: property, def: any): gettype =>
+export const getNonEmptyString = (prop: property, def: any): gettype =>
   get(safeNonEmptyString(prop, def));
 
-export const isPropNonEmptyStringC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropNonEmptyString(prop, def));
+export const getNonEmptyStringC = (prop: property, def: any): boolean =>
+  flip(evalWith, getNonEmptyString(prop, def));
 
-//isPropArray :: -> State.get :: (s -> a) -> State s a
-export const isPropArray = (prop: property, def: any): gettype =>
+//getArray :: -> State.get :: (s -> a) -> State s a
+export const getArray = (prop: property, def: any): gettype =>
   get(safeArrayProp(prop, def));
 
-export const isPropArrayC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropArray(prop, def));
+export const getArrayC = (prop: property, def: any): boolean =>
+  flip(evalWith, getArray(prop, def));
 
-//isPropNonEmptyArray :: -> State.get :: (s -> a) -> State s a
-export const isPropNonEmptyArray = (prop: property, def: any): gettype =>
+//getNonEmptyArray :: -> State.get :: (s -> a) -> State s a
+export const getNonEmptyArray = (prop: property, def: any): gettype =>
   get(safeNonEmptyArrayProp(prop, def));
 
-export const isPropNonEmptyArrayC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropNonEmptyArray(prop, def));
+export const getNonEmptyArrayC = (prop: property, def: any): boolean =>
+  flip(evalWith, getNonEmptyArray(prop, def));
 
-//isPropObject :: -> State.get :: (s -> a) -> State s a
-export const isPropObject = (prop: property, def: any): gettype =>
+//getObject :: -> State.get :: (s -> a) -> State s a
+export const getObject = (prop: property, def: any): gettype =>
   get(safeObjectProp(prop, def));
 
-export const isPropObjectC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropObject(prop, def));
+export const getObjectC = (prop: property, def: any): boolean =>
+  flip(evalWith, getObject(prop, def));
 
-//isPropNonEmptyObject:: -> State.get :: (s -> a) -> State s a
-export const isPropNonEmptyObject = (prop: property, def: any): gettype =>
+//getNonEmptyObject:: -> State.get :: (s -> a) -> State s a
+export const getNonEmptyObject = (prop: property, def: any): gettype =>
   get(safeNonEmptyObject(prop, def));
 
-export const isPropNonEmptyObjectC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropNonEmptyObject(prop, def));
+export const getNonEmptyObjectC = (prop: property, def: any): boolean =>
+  flip(evalWith, getNonEmptyObject(prop, def));
 
-//isPropNumber :: -> State.get :: (s -> a) -> State s a
-export const isPropNumber = (prop: property, def: any): gettype =>
+//getNumber :: -> State.get :: (s -> a) -> State s a
+export const getNumber = (prop: property, def: any): gettype =>
   get(safeNumberProp(prop, def));
 
-export const isPropNumberC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropNumber(prop, def));
+export const getNumberC = (prop: property, def: any): boolean =>
+  flip(evalWith, getNumber(prop, def));
 
-//isPropBoolean :: -> State.get :: (s -> a) -> State s a
-export const isPropBoolean = (prop: property, def: any): gettype =>
+//getBoolean :: -> State.get :: (s -> a) -> State s a
+export const getBoolean = (prop: property, def: any): gettype =>
   get(safeBooleanProp(prop, def));
 
-export const isPropBooleanC = (prop: property, def: any): boolean =>
-  flip(evalWith, isPropBoolean(prop, def));
+export const getBooleanC = (prop: property, def: any): boolean =>
+  flip(evalWith, getBoolean(prop, def));

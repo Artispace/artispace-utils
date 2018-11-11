@@ -1,27 +1,23 @@
 import expect from "expect";
 import {
-  isPropBoolean,
-  isPropBooleanC,
-  isPropNumber,
-  isPropNumberC,
-  isPropObject,
-  isPropObjectC,
-  isPropNonEmptyObject,
-  isPropNonEmptyObjectC,
-  isPropArray,
-  isPropArrayC,
-  isPropNonEmptyArray,
-  isPropNonEmptyArrayC,
-  isPropString,
-  isPropStringC,
-  isPropNonEmptyString,
-  isPropNonEmptyStringC
+  getBoolean,
+  getBooleanC,
+  getNumber,
+  getNumberC,
+  getObject,
+  getObjectC,
+  getNonEmptyObject,
+  getNonEmptyObjectC,
+  getArray,
+  getArrayC,
+  getNonEmptyArray,
+  getNonEmptyArrayC,
+  getString,
+  getStringC,
+  getNonEmptyString,
+  getNonEmptyStringC
 } from "../../src/ADTS/state";
 
-/**
- *Testing the boolean props
- *BEGIN
- */
 const props = {
   a: "String",
   b: false,
@@ -29,39 +25,44 @@ const props = {
   identityArr: []
 };
 
-describe("Testing isPropString", () => {
+/**
+ *Testing the boolean props
+ *BEGIN
+ */
+
+describe("Testing getString", () => {
   it("It returns empty string when a non string prop is requested", () => {
-    expect(isPropString("b", "").evalWith(props)).toEqual("");
+    expect(getString("b", "").evalWith(props)).toEqual("");
   });
 });
 
-describe("Testing isPropString", () => {
+describe("Testing getString", () => {
   it("It returns empty string when a non empty string prop is requested", () => {
-    expect(isPropStringC("b", "")(props)).toEqual("");
+    expect(getStringC("b", "")(props)).toEqual("");
   });
 });
 
-describe("Testing isPropNonEmptyString", () => {
+describe("Testing getNonEmptyString", () => {
   it("It returns hello when a non empty string prop is required", () => {
-    expect(isPropNonEmptyString("b", "hello").evalWith(props)).toBe("hello");
+    expect(getNonEmptyString("b", "hello").evalWith(props)).toBe("hello");
   });
 });
 
-describe("Testing isPropNonEmptyStringC", () => {
+describe("Testing getNonEmptyStringC", () => {
   it("It returns hello when a non empty string props is required", () => {
-    expect(isPropNonEmptyStringC("b", "hello")(props)).toBe("hello");
+    expect(getNonEmptyStringC("b", "hello")(props)).toBe("hello");
   });
 });
 
-describe("Testing isPropBoolean", () => {
+describe("Testing getBoolean", () => {
   it("It returns false when a non bool prop is requested", () => {
-    expect(isPropBoolean("a", false).evalWith(props)).toBe(false);
+    expect(getBoolean("a", false).evalWith(props)).toBe(false);
   });
 });
 
-describe("Testing isPropBooleanC", () => {
+describe("Testing getBooleanC", () => {
   it("returns false when a non bool prop is requested", () => {
-    expect(isPropBooleanC("a", false)(props)).toBe(false);
+    expect(getBooleanC("a", false)(props)).toBe(false);
   });
 });
 
@@ -74,15 +75,15 @@ describe("Testing isPropBooleanC", () => {
  *Testing int props
  * BEGIN
  */
-describe("Testing isPropNumber", () => {
+describe("Testing getNumber", () => {
   it("returns 1 when a non int prop is requested", () => {
-    expect(isPropNumber("a", 1).evalWith(props)).toBe(1);
+    expect(getNumber("a", 1).evalWith(props)).toBe(1);
   });
 });
 
-describe("Testing isPropNumberC", () => {
+describe("Testing getNumberC", () => {
   it("returns 1 when a non int prop is requested", () => {
-    expect(isPropNumberC("a", 1)(props)).toBe(1);
+    expect(getNumberC("a", 1)(props)).toBe(1);
   });
 });
 
@@ -96,31 +97,31 @@ describe("Testing isPropNumberC", () => {
  * BEGIN
  */
 
-describe("Testing isPropObject", () => {
+describe("Testing getObject", () => {
   it("returns Empty Object {} when non object prop is requested", () => {
-    expect(isPropObject("a", {}).evalWith(props)).toEqual({});
+    expect(getObject("a", {}).evalWith(props)).toEqual({});
   });
 });
 
-describe("Testing isPropObjectC", () => {
+describe("Testing getObjectC", () => {
   it("returns Empty Object {} when non object prop is requested", () => {
-    expect(isPropObjectC("a", {})(props)).toEqual({});
+    expect(getObjectC("a", {})(props)).toEqual({});
   });
 });
 
-describe("Testing isPropNonEmptyObject", () => {
+describe("Testing getNonEmptyObject", () => {
   it("returns {a: 12} when empty obj prop is requested", () => {
-    expect(
-      isPropNonEmptyObject("identityObj", { a: 12 }).evalWith(props)
-    ).toEqual({
-      a: 12
-    });
+    expect(getNonEmptyObject("identityObj", { a: 12 }).evalWith(props)).toEqual(
+      {
+        a: 12
+      }
+    );
   });
 });
 
-describe("Testing isPropNonEmptyObjectC", () => {
+describe("Testing getNonEmptyObjectC", () => {
   it("returns {a: 12} when empty obj prop is requested", () => {
-    expect(isPropNonEmptyObjectC("identityObj", { a: 12 })(props)).toEqual({
+    expect(getNonEmptyObjectC("identityObj", { a: 12 })(props)).toEqual({
       a: 12
     });
   });
@@ -136,29 +137,31 @@ describe("Testing isPropNonEmptyObjectC", () => {
  * BEGIN
  */
 
-describe("Testing isPropArray", () => {
+describe("Testing getArray", () => {
   it("returns [] when nonarrayprop is requested", () => {
-    expect(isPropArray("a", []).evalWith(props)).toEqual([]);
+    expect(getArray("a", []).evalWith(props)).toEqual([]);
   });
 });
 
-describe("Testing isPropArrayC", () => {
+describe("Testing getArrayC", () => {
   it("returns [] when nonarrayprop is requested", () => {
-    expect(isPropArrayC("a", [])(props)).toEqual([]);
+    expect(getArrayC("a", [])(props)).toEqual([]);
   });
 });
 
-describe("Testing isPropNonEmptyArray", () => {
+describe("Testing getNonEmptyArray", () => {
   it("returns [1,2,3] when empty array or non empty prop is requested", () => {
-    expect(
-      isPropNonEmptyArray("identityArr", [1, 2, 3]).evalWith(props)
-    ).toEqual([1, 2, 3]);
+    expect(getNonEmptyArray("identityArr", [1, 2, 3]).evalWith(props)).toEqual([
+      1,
+      2,
+      3
+    ]);
   });
 });
 
-describe("Testing isPropNonEmptyArrayC", () => {
+describe("Testing getNonEmptyArrayC", () => {
   it("returns [1,2,3] when empty array or non empty prop is requested", () => {
-    expect(isPropNonEmptyArrayC("identityArr", [1, 2, 3])(props)).toEqual([
+    expect(getNonEmptyArrayC("identityArr", [1, 2, 3])(props)).toEqual([
       1,
       2,
       3

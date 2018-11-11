@@ -29,30 +29,47 @@ type predtype = (
 };
 
 //isNonEmpty :: a -> Boolean
-const isNonEmpty: Boolean = and(not(isEmpty));
+const isNonEmpty: boolean = and(not(isEmpty));
 
 // isPropString :: Pred String
 export const isPropString: predtype = Pred(isString);
 
-//isPropStrictString :: Pred string
-export const isPropStrictString: predtype = isPropString.concat(
+//isPropStringC :: a -> Boolean
+export const isPropStringC: boolean = flip(runWith, isPropString);
+
+//isPropNonEmptyString :: Pred string
+export const isPropNonEmptyString: predtype = isPropString.concat(
   Pred(isNonEmpty)
 );
 
-//isPropsTrue :: Pred Boolean
-export const isPropsTrue: predtype = Pred(equals(true));
+export const isPropNonEmptyStringC: boolean = flip(
+  runWith,
+  isPropNonEmptyString
+);
 
-// truthyVal :: String -> Pred Object
-export const truthyObjVal = (val: property): predtype =>
-  isPropsTrue.contramap(propOr(false, val));
+//isPropTrue :: Pred Boolean
+export const isPropTrue: predtype = Pred(equals(true));
 
-// doesPropsHaveProp :: Pred {} | []
-export const doesPropsHaveProp = (prop: property): predtype =>
-  Pred(hasProp(prop));
+export const isPropTrueC: boolean = flip(runWith, isPropTrue);
 
-export const composedhasProps = (prop: property): Boolean =>
-  flip(runWith, doesPropsHaveProp(prop));
+// isObjectPropTrue :: a -> Pred Object
+export const isObjectPropTrue = (val: property): predtype =>
+  isPropTrue.contramap(propOr(false, val));
+// isObjectPropTrueC :: a -> boolean
+export const isObjectPropTrueC = (val: property): boolean =>
+  flip(runWith, isObjectPropTrue(val));
 
-// isObjectPropValueTrue :: Pred {}
-export const isObjectPropValueTrue = (prop: property): predtype =>
-  doesPropsHaveProp(prop).concat(truthyObjVal(prop));
+// doesPropExist :: Pred {} | []
+export const doesPropExist = (prop: property): predtype => Pred(hasProp(prop));
+
+// doesPropExistC :: a -> boolean
+export const doesPropExistC = (prop: property): boolean =>
+  flip(runWith, doesPropExist(prop));
+
+// isObjectPropTruthy :: Pred {}
+export const isObjectPropTruthy = (prop: property): predtype =>
+  doesPropExist(prop).concat(truthyObjVal(prop));
+
+//isObjectPropTruthyC :: a -> Boolean
+export const isObjectPropTruthyC = (prop: property): boolean =>
+  flip(runWith, isObjectPropTruthy(prop));
