@@ -14,7 +14,9 @@ export {
   getString,
   getStringC,
   getNonEmptyString,
-  getNonEmptyStringC
+  getNonEmptyStringC,
+  getFunction,
+  getFunctionC
 } from "./ADTS/state.js";
 
 export {

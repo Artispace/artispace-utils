@@ -15,14 +15,17 @@ import {
   getString,
   getStringC,
   getNonEmptyString,
-  getNonEmptyStringC
+  getNonEmptyStringC,
+  getFunction,
+  getFunctionC
 } from "../../src/ADTS/state";
 
 const props = {
   a: "String",
   b: false,
   identityObj: {},
-  identityArr: []
+  identityArr: [],
+  simpleFn: a => a + 1
 };
 
 /**
@@ -168,3 +171,25 @@ describe("Testing getNonEmptyArrayC", () => {
     ]);
   });
 });
+
+/**
+ * Testing functions
+ * BEGIN
+ */
+
+describe("Testing getFunction", () => {
+  it("returns 3 when called with simpleFn param in props", () => {
+    expect(getFunction("simpleFn", () => {}).evalWith(props)(2)).toBe(3);
+  });
+});
+
+describe("Testing getFunctionC", () => {
+  it("returns 3 when called with simpleFn param in props", () => {
+    expect(getFunctionC("simpleFn", () => {})(props)(2)).toBe(3);
+  });
+});
+
+/**
+ * Testing functions
+ * END
+ */

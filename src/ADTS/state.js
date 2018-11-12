@@ -14,6 +14,7 @@ import isArray from "crocks/predicates/isArray";
 import isObject from "crocks/predicates/isObject";
 import isNumber from "crocks/predicates/isNumber";
 import isBoolean from "crocks/predicates/isBoolean";
+import isFunction from "crocks/predicates/isFunction";
 import { get } from "crocks/State";
 import flip from "crocks/combinators/flip";
 import evalWith from "crocks/State/evalWith";
@@ -72,6 +73,8 @@ const safeNumberProp = (n, def): number => propOr(n, isNumber, def);
 
 const safeBooleanProp = (n, def): Boolean => propOr(n, isBoolean, def);
 
+const safeFunctionProp = (n, def) => propOr(n, isFunction, def);
+
 //getString :: -> State.get :: (s -> a) -> State s a
 export const getString = (prop: property, def: any): gettype =>
   get(safeStringProp(prop, def));
@@ -126,3 +129,9 @@ export const getBoolean = (prop: property, def: any): gettype =>
 
 export const getBooleanC = (prop: property, def: any): boolean =>
   flip(evalWith, getBoolean(prop, def));
+
+export const getFunction = (prop: property, def: any): gettype =>
+  get(safeFunctionProp(prop, def));
+
+export const getFunctionC = (prop: property, def: any): boolean =>
+  flip(evalWith, getFunction(prop, def));
