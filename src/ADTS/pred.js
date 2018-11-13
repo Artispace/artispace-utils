@@ -52,7 +52,7 @@ export const isPropTrue: predtype = Pred(equals(true));
 
 export const isPropTrueC: boolean = flip(runWith, isPropTrue);
 
-// isObjectPropTrue :: a -> Pred Object
+// isObjectPropTrue :: a -> Pred
 export const isObjectPropTrue = (val: property): predtype =>
   isPropTrue.contramap(propOr(false, val));
 // isObjectPropTrueC :: a -> boolean
@@ -68,7 +68,7 @@ export const doesPropExistC = (prop: property): boolean =>
 
 // isObjectPropTruthy :: Pred {}
 export const isObjectPropTruthy = (prop: property): predtype =>
-  doesPropExist(prop).concat(truthyObjVal(prop));
+  doesPropExist(prop).concat(isObjectPropTrue(prop));
 
 //isObjectPropTruthyC :: a -> Boolean
 export const isObjectPropTruthyC = (prop: property): boolean =>

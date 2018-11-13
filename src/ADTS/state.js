@@ -85,21 +85,28 @@ export const getStringC = (prop: property, def: any): boolean =>
 export const getNonEmptyString = (prop: property, def: any): gettype =>
   get(safeNonEmptyString(prop, def));
 
-export const getNonEmptyStringC = (prop: property, def: any): boolean =>
+export const getNonEmptyStringC = (prop: property, def: any): any =>
   flip(evalWith, getNonEmptyString(prop, def));
+
+export const getStrInRange = (prop: property, def: any): any => {
+  return (props: any) => {
+    const str = getNonEmptyStringC(prop, def)(props);
+    return (range: Array<any>) => (range.includes(str) ? str : def);
+  };
+};
 
 //getArray :: -> State.get :: (s -> a) -> State s a
 export const getArray = (prop: property, def: any): gettype =>
   get(safeArrayProp(prop, def));
 
-export const getArrayC = (prop: property, def: any): boolean =>
+export const getArrayC = (prop: property, def: any): any =>
   flip(evalWith, getArray(prop, def));
 
 //getNonEmptyArray :: -> State.get :: (s -> a) -> State s a
 export const getNonEmptyArray = (prop: property, def: any): gettype =>
   get(safeNonEmptyArrayProp(prop, def));
 
-export const getNonEmptyArrayC = (prop: property, def: any): boolean =>
+export const getNonEmptyArrayC = (prop: property, def: any): any =>
   flip(evalWith, getNonEmptyArray(prop, def));
 
 //getObject :: -> State.get :: (s -> a) -> State s a
@@ -120,18 +127,25 @@ export const getNonEmptyObjectC = (prop: property, def: any): boolean =>
 export const getNumber = (prop: property, def: any): gettype =>
   get(safeNumberProp(prop, def));
 
-export const getNumberC = (prop: property, def: any): boolean =>
+export const getNumberC = (prop: property, def: any): any =>
   flip(evalWith, getNumber(prop, def));
+
+export const getNumberInRange = (prop: property, def: any): any => {
+  return (props: any) => {
+    const int = getNumberC(prop, def)(props);
+    return (range: Array<any>) => (range.includes(int) ? int : def);
+  };
+};
 
 //getBoolean :: -> State.get :: (s -> a) -> State s a
 export const getBoolean = (prop: property, def: any): gettype =>
   get(safeBooleanProp(prop, def));
 
-export const getBooleanC = (prop: property, def: any): boolean =>
+export const getBooleanC = (prop: property, def: any): any =>
   flip(evalWith, getBoolean(prop, def));
 
 export const getFunction = (prop: property, def: any): gettype =>
   get(safeFunctionProp(prop, def));
 
-export const getFunctionC = (prop: property, def: any): boolean =>
+export const getFunctionC = (prop: property, def: any): any =>
   flip(evalWith, getFunction(prop, def));

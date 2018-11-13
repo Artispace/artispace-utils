@@ -4,6 +4,7 @@ import {
   getBooleanC,
   getNumber,
   getNumberC,
+  getNumberInRange,
   getObject,
   getObjectC,
   getNonEmptyObject,
@@ -14,6 +15,7 @@ import {
   getNonEmptyArrayC,
   getString,
   getStringC,
+  getStrInRange,
   getNonEmptyString,
   getNonEmptyStringC,
   getFunction,
@@ -21,6 +23,7 @@ import {
 } from "../../src/ADTS/state";
 
 const props = {
+  num: 12,
   a: "String",
   b: false,
   identityObj: {},
@@ -57,6 +60,15 @@ describe("Testing getNonEmptyStringC", () => {
   });
 });
 
+describe("Testing getStrInRange", () => {
+  it("It returns string if it is the range specified", () => {
+    expect(getStrInRange("a", "Yes")(props)(["String", "Tev"])).toBe("String");
+  });
+  it("It returns default string if it isnt in the range specified", () => {
+    expect(getStrInRange("a", "Not here")(props)(["Tev"])).toBe("Not here");
+  });
+});
+
 describe("Testing getBoolean", () => {
   it("It returns false when a non bool prop is requested", () => {
     expect(getBoolean("a", false).evalWith(props)).toBe(false);
@@ -87,6 +99,12 @@ describe("Testing getNumber", () => {
 describe("Testing getNumberC", () => {
   it("returns 1 when a non int prop is requested", () => {
     expect(getNumberC("a", 1)(props)).toBe(1);
+  });
+});
+
+describe("Testing getNumberInRange", () => {
+  it("returns number if it is the range specified", () => {
+    expect(getNumberInRange("num", 24)(props)([12, 11, 10])).toBe(12);
   });
 });
 
