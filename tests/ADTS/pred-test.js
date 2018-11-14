@@ -11,7 +11,9 @@ import {
   isPropNonEmptyStringC,
   isPropStringC,
   isPropTrue,
-  isPropTrueC
+  isPropTrueC,
+  isPropEqual,
+  isPropEqualC
 } from "../../src/ADTS/pred";
 
 const props = {
@@ -79,5 +81,21 @@ describe("Testing isPropTrue", () => {
 describe("Testing isPropTrueC", () => {
   it("It returns false if prop value isnt true", () => {
     expect(isPropTrueC(props)).toEqual(false);
+  });
+});
+
+//equality test
+describe("Testing isPropEqual", () => {
+  it("It returns true if props are equal", () => {
+    expect(isPropEqual(props).runWith(props)).toEqual(true);
+  });
+  it("It returns false if props are not equal", () => {
+    expect(isPropEqual("Stringify").runWith(props.a)).toEqual(false);
+  });
+});
+
+describe("Testing isPropEqualC", () => {
+  it("It returns true if props are equal", () => {
+    expect(isPropEqualC(props)(props)).toEqual(true);
   });
 });

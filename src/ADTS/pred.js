@@ -42,6 +42,13 @@ export const isPropNonEmptyString: predtype = isPropString.concat(
   Pred(isNonEmpty)
 );
 
+//isPropEqual :: Pred Boolean
+export const isPropEqual = (a: any): predtype => Pred(equals(a));
+
+//isPropEqualC :: a -> (b -> Boolean) -> Boolean
+export const isPropEqualC = (a: any): (any => boolean) =>
+  flip(runWith, isPropEqual(a));
+
 export const isPropNonEmptyStringC: boolean = flip(
   runWith,
   isPropNonEmptyString
