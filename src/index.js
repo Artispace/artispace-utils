@@ -29,5 +29,7 @@ export {
   isPropNonEmptyStringC,
   isPropStringC,
   isPropTrue,
-  isPropTrueC
+  isPropTrueC,
+  isPropEqual,
+  isPropEqualC
 } from "./ADTS/pred";
