@@ -43,11 +43,15 @@ type gettype = (
   map: (fn: any) => any,
   chain: (fn: any) => any
 };
+
+type StringList = Array<string>;
+type NumberList = Array<number>;
+
 //isNonEmptyString :: a -> Boolean
-const isNonEmptyString: boolean = and(not(isEmpty), isString);
+const isNonEmptyString: any => boolean = and(not(isEmpty), isString);
 
 //isNonEmptyObject :: a -> Boolean
-const isNonEmptyObject: boolean = and(not(isEmpty), isObject);
+const isNonEmptyObject: any => boolean = and(not(isEmpty), isObject);
 
 //isNonEmptyArray :: a -> Boolean
 const isNonEmptyArray: boolean = and(not(isEmpty), isArray);
@@ -88,10 +92,13 @@ export const getNonEmptyString = (prop: property, def: any): gettype =>
 export const getNonEmptyStringC = (prop: property, def: any): any =>
   flip(evalWith, getNonEmptyString(prop, def));
 
-export const getStrInRange = (prop: property, def: any): any => {
+export const getStrInRange = (
+  prop: property,
+  def: any
+): (any => StringList => any) => {
   return (props: any) => {
     const str = getNonEmptyStringC(prop, def)(props);
-    return (range: Array<any>) => (range.includes(str) ? str : def);
+    return (range: StringList) => (range.includes(str) ? str : def);
   };
 };
 
@@ -99,28 +106,28 @@ export const getStrInRange = (prop: property, def: any): any => {
 export const getArray = (prop: property, def: any): gettype =>
   get(safeArrayProp(prop, def));
 
-export const getArrayC = (prop: property, def: any): any =>
+export const getArrayC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getArray(prop, def));
 
 //getNonEmptyArray :: -> State.get :: (s -> a) -> State s a
 export const getNonEmptyArray = (prop: property, def: any): gettype =>
   get(safeNonEmptyArrayProp(prop, def));
 
-export const getNonEmptyArrayC = (prop: property, def: any): any =>
+export const getNonEmptyArrayC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getNonEmptyArray(prop, def));
 
 //getObject :: -> State.get :: (s -> a) -> State s a
 export const getObject = (prop: property, def: any): gettype =>
   get(safeObjectProp(prop, def));
 
-export const getObjectC = (prop: property, def: any): boolean =>
+export const getObjectC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getObject(prop, def));
 
 //getNonEmptyObject:: -> State.get :: (s -> a) -> State s a
 export const getNonEmptyObject = (prop: property, def: any): gettype =>
   get(safeNonEmptyObject(prop, def));
 
-export const getNonEmptyObjectC = (prop: property, def: any): boolean =>
+export const getNonEmptyObjectC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getNonEmptyObject(prop, def));
 
 //getNumber :: -> State.get :: (s -> a) -> State s a
@@ -130,10 +137,13 @@ export const getNumber = (prop: property, def: any): gettype =>
 export const getNumberC = (prop: property, def: any): any =>
   flip(evalWith, getNumber(prop, def));
 
-export const getNumberInRange = (prop: property, def: any): any => {
+export const getNumberInRange = (
+  prop: property,
+  def: any
+): (any => NumberList => any) => {
   return (props: any) => {
     const int = getNumberC(prop, def)(props);
-    return (range: Array<any>) => (range.includes(int) ? int : def);
+    return (range: NumberList) => (range.includes(int) ? int : def);
   };
 };
 
@@ -141,11 +151,11 @@ export const getNumberInRange = (prop: property, def: any): any => {
 export const getBoolean = (prop: property, def: any): gettype =>
   get(safeBooleanProp(prop, def));
 
-export const getBooleanC = (prop: property, def: any): any =>
+export const getBooleanC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getBoolean(prop, def));
 
 export const getFunction = (prop: property, def: any): gettype =>
   get(safeFunctionProp(prop, def));
 
-export const getFunctionC = (prop: property, def: any): any =>
+export const getFunctionC = (prop: property, def: any): (any => any) =>
   flip(evalWith, getFunction(prop, def));
