@@ -1,6 +1,6 @@
 {
   "name": "@artispace/utils",
-  "version": "1.0.32",
+  "version": "1.0.4",
   "description": "This package provides all the utility functions and safety I need in developing Artispace",
   "main": "lib/index.js",
   "module": "es/index.js",

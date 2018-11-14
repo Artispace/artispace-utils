@@ -33,3 +33,14 @@ export {
   isPropEqual,
   isPropEqualC
 } from "./ADTS/pred";
+
+export {
+  findString,
+  findStringC,
+  findNumber,
+  findNumberC,
+  findObject,
+  findObjectC,
+  findArray,
+  findArrayC
+} from "./ADTS/maybe";
