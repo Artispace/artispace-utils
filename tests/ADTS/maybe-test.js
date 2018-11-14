@@ -1,6 +1,13 @@
 import expect from "expect";
 
-import { findAny, findAnyC } from "../../src/ADTS/maybe";
+import {
+  findAny,
+  findAnyC,
+  findAnyWithPred,
+  findAnyWithPredC
+} from "../../src/ADTS/maybe";
+
+import { isPropEqual } from "../../src/ADTS/pred";
 
 const props = {
   a: "String",
@@ -10,7 +17,8 @@ const props = {
   arrWithObj: [{ a: 12 }],
   arrWithStrings: ["Tev", "Tre"],
   arrWithNumbers: [1, 2, 3, 4],
-  arrWithArrs: [[1, 2], [1, 3], [3, 4]]
+  arrWithArrs: [[1, 2], [1, 3], [3, 4]],
+  arrWithId: [{ id: 1 }, { id: 2 }, { id: 32 }]
 };
 
 describe("Testing findAny", () => {
@@ -54,8 +62,25 @@ describe("Testing findAny", () => {
   it("It returns the [arr] if it is in the arrayContainer", () => {
     expect(findAnyC([1, 2], [])(props.arrWithArrs)).toEqual([1, 2]);
   });
-
   it("It returns the default [] if it is in not in arrayContainer", () => {
     expect(findAnyC([1, 5], [])(props.arrWithArrs)).toEqual([]);
+  });
+});
+
+const eq = n => isPropEqual(n).contramap(({ id }) => id);
+
+describe("Testing findAnyWithhPred", () => {
+  it("It retuns Obj in the array matching the id", () => {
+    expect(findAnyWithPred(props.arrWithId)(eq(32)).option(1)).toEqual({
+      id: 32
+    });
+  });
+});
+
+describe("Testing findAntWithPredC", () => {
+  it("It returns Obj in the array matching the id", () => {
+    expect(findAnyWithPredC(props.arrWithId, { id: 1 })(eq(32))).toEqual({
+      id: 32
+    });
   });
 });
