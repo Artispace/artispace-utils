@@ -34,4 +34,11 @@ export {
   isPropEqualC
 } from "./ADTS/pred";
 
-export { findAny, findAnyC } from "./ADTS/maybe";
+export {
+  findAny,
+  findAnyC,
+  findAnyWithPred,
+  findAnyWithPredC,
+  valInPath,
+  valInPathC
+} from "./ADTS/maybe";

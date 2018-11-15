@@ -1,10 +1,13 @@
 import expect from "expect";
+import { Just } from "crocks/Maybe";
 
 import {
   findAny,
   findAnyC,
   findAnyWithPred,
-  findAnyWithPredC
+  findAnyWithPredC,
+  valInPath,
+  valInPathC
 } from "../../src/ADTS/maybe";
 
 import { isPropEqual } from "../../src/ADTS/pred";
@@ -18,7 +21,12 @@ const props = {
   arrWithStrings: ["Tev", "Tre"],
   arrWithNumbers: [1, 2, 3, 4],
   arrWithArrs: [[1, 2], [1, 3], [3, 4]],
-  arrWithId: [{ id: 1 }, { id: 2 }, { id: 32 }]
+  arrWithId: [{ id: 1 }, { id: 2 }, { id: 32 }],
+  validatePath: {
+    first: {
+      val: 12
+    }
+  }
 };
 
 describe("Testing findAny", () => {
@@ -82,5 +90,19 @@ describe("Testing findAntWithPredC", () => {
     expect(findAnyWithPredC(props.arrWithId, { id: 1 })(eq(32))).toEqual({
       id: 32
     });
+  });
+});
+
+describe("Testing valInPath", () => {
+  it("It returns A Just of the value at the last element in the path", () => {
+    expect(valInPath(["validatePath", "first", "val"])(props)).toEqual(
+      Just(12)
+    );
+  });
+});
+
+describe("Testing valInPathC", () => {
+  it("It returns a value 12 at the last element in the path", () => {
+    expect(valInPathC(["validatePath", "first", "val"], 12)(props)).toEqual(12);
   });
 });

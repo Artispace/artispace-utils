@@ -10,6 +10,8 @@ import ifElse from "crocks/logic/ifElse";
 import map from "crocks/pointfree/map";
 import chain from "crocks/pointfree/chain";
 import equals from "crocks/pointfree/equals";
+import propPath from "crocks/Maybe/propPath";
+import hasPropPath from "crocks/predicates/hasPropPath";
 
 import { isPropEqual } from "./pred";
 
@@ -38,4 +40,18 @@ export const findAnyWithPredC = (arr, def) =>
   compose(
     option(def),
     findAnyWithPred(arr)
+  );
+
+export const validatePath = path => ifElse(hasPropPath(path), Just, Nothing);
+
+export const valInPath = path =>
+  compose(
+    chain(propPath(path)),
+    validatePath(path)
+  );
+
+export const valInPathC = (path, def) =>
+  compose(
+    option(def),
+    valInPath(path)
   );
