@@ -24,7 +24,11 @@ const props = {
   arrWithId: [{ id: 1 }, { id: 2 }, { id: 32 }],
   validatePath: {
     first: {
-      val: 12
+      val: 12,
+      second: {
+        plus: 1,
+        third: 13
+      }
     }
   }
 };
@@ -97,6 +101,19 @@ describe("Testing valInPath", () => {
   it("It returns A Just of the value at the last element in the path", () => {
     expect(valInPath(["validatePath", "first", "val"])(props)).toEqual(
       Just(12)
+    );
+  });
+  it("It returns a Just after chaining", () => {
+    expect(
+      valInPath(["validatePath"])(props).chain(valInPath(["first"]))
+    ).toEqual(
+      Just({
+        val: 12,
+        second: {
+          plus: 1,
+          third: 13
+        }
+      })
     );
   });
 });

@@ -30,6 +30,7 @@ export const findAnyC = (a, def) =>
 const validateSameType = ifElse(isSameType(Pred), Just, Nothing);
 
 // findAnyWithPred :: Pred -> b -> M a
+
 export const findAnyWithPred = arr =>
   compose(
     chain(pred => find(pred, arr)),
@@ -55,3 +56,17 @@ export const valInPathC = (path, def) =>
     option(def),
     valInPath(path)
   );
+
+// const a = {
+//   validatePath: {
+//     first: {
+//       val: 12,
+//       second: {
+//         plus: 1,
+//         third: 13
+//       }
+//     }
+//   }
+// };
+
+// console.log(valInPath(["validatePath"])(a).chain(valInPath(["first"])).option());

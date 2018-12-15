@@ -42,3 +42,5 @@ export {
   valInPath,
   valInPathC
 } from "./ADTS/maybe";
+
+import { nestObject, deleteNestedObjectProps } from "./Utils";
