@@ -1,5 +1,17 @@
 const { getObjectC } = require("../ADTS/state");
 
+const {
+  chain,
+  map,
+  valueOf,
+  option,
+  safe,
+  isArray,
+  compose,
+  Last,
+  mconcatMap
+} = require("crocks");
+
 const nestObject = (obj, keys, v) =>
   keys.reduce((acc, curr, index, arr) => {
     if (index === arr.length - 1) {
@@ -22,7 +34,16 @@ const deleteNestedObjectProps = (obj, keys) =>
     return acc;
   }, obj);
 
+const chooseLast = mconcatMap(Last, x => x);
+const returnLastItem = compose(
+  option(""),
+  chain(valueOf),
+  map(chooseLast),
+  safe(isArray)
+);
+
 module.exports = {
   nestObject,
-  deleteNestedObjectProps
+  deleteNestedObjectProps,
+  returnLastItem
 };

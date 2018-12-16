@@ -43,4 +43,4 @@ export {
   valInPathC
 } from "./ADTS/maybe";
 
-import { nestObject, deleteNestedObjectProps } from "./Utils";
+import { nestObject, deleteNestedObjectProps, returnLastItem } from "./Utils";
